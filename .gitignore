@@ -1,0 +1,38 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+dist/
+build/
+
+# NIH images, archives, and anything dropped into data/. The synthetic
+# fixture under tests/fixtures is the only image data that belongs in git.
+data/*
+!data/.gitkeep
+*.tar.gz
+*.tgz
+*.zip
+*.partial
+
+# Trained weights and local experiment output.
+checkpoints/*
+!checkpoints/.gitkeep
+outputs/*
+!outputs/.gitkeep
+mlruns/
+mlflow.db
+*.db
+*.pt
+*.pth
+*.ckpt
+
+.DS_Store
+.idea/
+.vscode/
+*.log

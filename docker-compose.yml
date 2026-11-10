@@ -1,0 +1,15 @@
+# Local CPU service. Mount a checkpoint at /models/best.pt when you have one.
+# Without it, /health stays up and /predict returns 503.
+
+services:
+  api:
+    build: .
+    image: chest-xray-triage:local
+    ports:
+      - "8000:8000"
+    environment:
+      MODEL_PATH: /models/best.pt
+      CXR_DEVICE: cpu
+      PORT: "8000"
+    volumes:
+      - ./checkpoints:/models:ro

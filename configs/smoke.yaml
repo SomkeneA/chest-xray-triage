@@ -1,0 +1,46 @@
+# One CPU epoch on the committed synthetic fixture. No NIH download, no ImageNet weights.
+
+seed: 7
+checkpoint_dir: checkpoints
+
+data:
+  csv_path: tests/fixtures/synthetic/Data_Entry_2017.csv
+  image_dir: tests/fixtures/synthetic/images
+  train_ratio: 0.70
+  val_ratio: 0.10
+  test_ratio: 0.20
+  image_size: 64
+  batch_size: 4
+  num_workers: 0
+  split_strategy: patient_stratified
+  view_position: null
+  max_per_split: null
+  drop_missing: true
+
+model:
+  name: densenet121
+  pretrained: false
+  dropout: 0.0
+
+train:
+  epochs: 1
+  lr: 0.001
+  weight_decay: 0.0
+  optimizer: adamw
+  scheduler: none
+  pos_weight: auto
+  pos_weight_max: 10.0
+  early_stopping_patience: null
+  grad_clip: 1.0
+  amp: false
+  device: cpu
+
+mlflow:
+  enabled: true
+  experiment_name: chest-xray-triage-smoke
+  tracking_uri: sqlite:///mlruns/mlflow.db
+
+eval:
+  threshold: 0.5
+  ece_bins: 5
+  output_dir: outputs/eval

@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      MPLBACKEND: Agg
+      MLFLOW_ENABLE_SYSTEM_METRICS_LOGGING: "false"
+      MLFLOW_DISABLE_AGENT_HINT: "1"
+      OMP_NUM_THREADS: "2"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install CPU PyTorch and the package
+        run: make install
+      - name: Lint
+        run: make lint
+      - name: Test
+        run: make test
